@@ -4,7 +4,6 @@ const generateToken = require('../helpers/generateToken');
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('email', typeof email, email === undefined, password === undefined);
     if (!email || !password) {
       return res.status(400).json({ message: 'Some required fields are missing' }); 
     }
