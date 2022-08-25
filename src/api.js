@@ -2,10 +2,9 @@ const express = require('express');
 
 // ...
 
-// ---------------------------------------------------------------- EU
-const loginController = require('./controllers/loginController')
-// ---------------------------------------------------------------- EU
-
+// ----------------------------------------------------------------
+const loginController = require('./controllers/loginController');
+// ----------------------------------------------------------------
 
 const app = express();
 
@@ -13,9 +12,9 @@ app.use(express.json());
 
 // ...
 
-// ---------------------------------------------------------------- EU
-app.post('/login', loginController.login)
-// ---------------------------------------------------------------- EU
+// ----------------------------------------------------------------
+app.post('/login', loginController.login);
+// ----------------------------------------------------------------
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`//
