@@ -6,10 +6,14 @@ const schemaBody = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const schemaCategoryName = Joi.object({
+  name: Joi.string().required(),
+});
+
 function validatePropety(listSales, schema) {
   const { error } = schema.validate(listSales);
   if (!error) return false;
   return error.details[0].message;
 }
 
-module.exports = { validatePropety, schemaBody };
+module.exports = { validatePropety, schemaBody, schemaCategoryName };
