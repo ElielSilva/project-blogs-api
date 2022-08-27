@@ -21,7 +21,9 @@ const getAllPost = async (req, res) => {
 
 const getByIdPost = async (req, res) => {
   try {
-    const user = await postService.getByIdPost();
+    const { id } = req.params;
+    const user = await postService.getByIdPost(id);
+    if (!user) return res.status(404).json({ message: 'Post does not exist' });
     res.status(200).json(user);
   } catch (error) {
     console.log(error.message);

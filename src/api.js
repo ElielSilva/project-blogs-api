@@ -26,7 +26,7 @@ app.post('/categories', authMiddleware, categoriesController.createCategory);
 app.get('/categories', authMiddleware, categoriesController.getAllCategories);
 app.post('/post', authMiddleware, bodyPostMiddle, postController.createPost);
 app.get('/post', authMiddleware, postController.getAllPost);
-app.get('/post', authMiddleware, postController.getByIdPost);
+app.get('/post/:id', authMiddleware, postController.getByIdPost);
 // ----------------------------------------------------------------
 
 // É importante exportar a constante `app`,

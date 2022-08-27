@@ -19,7 +19,7 @@ const schemaBlogPost = Joi.object({
 function validatePropety(listSales, schema) {
   const { error } = schema.validate(listSales);
   if (!error) return false;
-  return true;
+  return error.details[0].message;
 }
 
 // console.log(
