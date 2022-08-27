@@ -5,7 +5,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-module.exports = ({ displayName, password }) => {
-  const token = jwt.sign({ displayName, password }, process.env.JWT_SECRET, jwtConfig);
+module.exports = ({ id, displayName }) => {
+  const token = jwt.sign({ id, displayName }, process.env.JWT_SECRET, jwtConfig);
   return token;
 };

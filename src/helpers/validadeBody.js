@@ -10,10 +10,32 @@ const schemaCategoryName = Joi.object({
   name: Joi.string().required(),
 });
 
+const schemaBlogPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+});
+
 function validatePropety(listSales, schema) {
   const { error } = schema.validate(listSales);
   if (!error) return false;
-  return error.details[0].message;
+  return true;
 }
 
-module.exports = { validatePropety, schemaBody, schemaCategoryName };
+// console.log(
+//   validatePropety(
+//     {
+//       title: 'Latest updates, August 1st',
+//       content: 'The whole text for the blog post goes here in this key',
+//       categoryIds: [1, 2],
+//     },    
+//     schemaBlogPost,
+// ),
+// );
+
+module.exports = { 
+  validatePropety, 
+  schemaBody, 
+  schemaCategoryName, 
+  schemaBlogPost,
+};
