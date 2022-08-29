@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { Category, BlogPost, User, PostCategory } = require('../database/models');
-// const validateBody = require('../helpers/validadeBody');
+const validatePropety = require('../helpers/validadeBody');
 
 const config = require('../database/config/config');
 
@@ -52,14 +52,29 @@ const getAllPost = async () => {
 
 const getByIdPost = async (id) => {
   try {
-    const dataCategories = await BlogPost
+    const dataPost = await BlogPost
     .findByPk(id, { include: [
       { 
         model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'], 
       }, {
         model: Category, as: 'categories', attributes: ['id', 'name'],
       }] });
-    return dataCategories;
+    return dataPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateByIdPost = async (postId, { title, content }, userId) => {
+  try {
+    const validate = validatePropety
+      .validatePropety({ title, content }, validatePropety.schemaUpDatePost);
+    if (validate) return { code: 400, message: 'Some required fields are missing' };
+    const post = await BlogPost.findByPk(postId);
+    if (post.userId !== userId) return { code: 401, message: 'Unauthorized user' };
+    const [result] = await BlogPost.update({ title, content }, { where: { id: postId } });
+    const data = await getByIdPost(result);
+    return { code: 200, data };
   } catch (error) {
     console.log(error);
   }
@@ -69,4 +84,5 @@ module.exports = {
   createPost, 
   getAllPost,
   getByIdPost,
+  updateByIdPost,
 };

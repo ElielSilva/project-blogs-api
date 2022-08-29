@@ -10,6 +10,11 @@ const schemaCategoryName = Joi.object({
   name: Joi.string().required(),
 });
 
+const schemaUpDatePost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 const schemaBlogPost = Joi.object({
   title: Joi.string().required(),
   content: Joi.string().required(),
@@ -38,4 +43,5 @@ module.exports = {
   schemaBody, 
   schemaCategoryName, 
   schemaBlogPost,
+  schemaUpDatePost,
 };
