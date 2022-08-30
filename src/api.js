@@ -22,10 +22,12 @@ app.post('/login', loginController.login);
 app.post('/user', userController.createUser);
 app.get('/user', authMiddleware, userController.getAll);
 app.get('/user/:id', authMiddleware, userController.getById);
+app.delete('/user/me', authMiddleware, userController.deleteByIdUser);
 app.post('/categories', authMiddleware, categoriesController.createCategory);
 app.get('/categories', authMiddleware, categoriesController.getAllCategories);
 app.post('/post', authMiddleware, bodyPostMiddle, postController.createPost);
 app.get('/post', authMiddleware, postController.getAllPost);
+app.get('/post/search', authMiddleware, postController.seachByQuery);
 app.get('/post/:id', authMiddleware, postController.getByIdPost);
 app.put('/post/:id', authMiddleware, postController.updateByIdPost);
 // ----------------------------------------------------------------

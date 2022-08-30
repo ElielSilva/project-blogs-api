@@ -41,9 +41,21 @@ const updateByIdPost = async (req, res) => {
   }
 };
 
+const seachByQuery = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const { code, data, message } = await postService.seachByQuery(q);
+    if (!data) return res.status(code).json({ message });
+    res.status(code).json(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPost,
   getByIdPost,
   updateByIdPost,
+  seachByQuery,
 };

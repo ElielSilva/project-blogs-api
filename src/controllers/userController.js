@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const { User } = require('../database/models');
 // const validateBody = require('../helpers/validadeBody');
 
 const createUser = async (req, res) => {
@@ -35,8 +36,18 @@ const getById = async (req, res) => {
   }
 };
 
+const deleteByIdUser = async (req, res) => {
+  try {
+    await User.destroy({ where: { id: req.id } });
+    res.status(204).json({});
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAll,
   getById,
+  deleteByIdUser,
 };

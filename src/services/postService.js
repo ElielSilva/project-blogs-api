@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { Category, BlogPost, User, PostCategory } = require('../database/models');
 const validatePropety = require('../helpers/validadeBody');
 
@@ -80,9 +81,26 @@ const updateByIdPost = async (postId, { title, content }, userId) => {
   }
 };
 
+const seachByQuery = async (q) => {
+  try {
+    const postAll = await getAllPost();
+    if (q === '') return { code: 200, data: postAll };
+    const data = await BlogPost.findAll({ where: { [Op.or]: [{ title: { [Op.like]: `%${q}%` } }, 
+      { content: { [Op.like]: `%${q}%` } }] },
+      include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] }, 
+      { model: Category, as: 'categories', attributes: ['id', 'name'] }], 
+    });
+    return { code: 200, data };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = { 
   createPost, 
   getAllPost,
   getByIdPost,
   updateByIdPost,
+  seachByQuery,
 };
