@@ -30,6 +30,7 @@ app.get('/post', authMiddleware, postController.getAllPost);
 app.get('/post/search', authMiddleware, postController.seachByQuery);
 app.get('/post/:id', authMiddleware, postController.getByIdPost);
 app.put('/post/:id', authMiddleware, postController.updateByIdPost);
+app.delete('/post/:id', authMiddleware, postController.deleteByIdPost);
 // ----------------------------------------------------------------
 
 // É importante exportar a constante `app`,

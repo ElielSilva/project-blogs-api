@@ -52,10 +52,22 @@ const seachByQuery = async (req, res) => {
   }
 };
 
+const deleteByIdPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { code, data, message } = await postService.deleteByIdPost(id, req.id);
+    if (!data) return res.status(code).json({ message });
+    res.status(code).json();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPost,
   getByIdPost,
   updateByIdPost,
   seachByQuery,
+  deleteByIdPost,
 };

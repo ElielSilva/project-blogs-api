@@ -97,10 +97,23 @@ const seachByQuery = async (q) => {
   }
 };
 
+const deleteByIdPost = async (postId, userId) => {
+  try {
+    const dataPost = await BlogPost.findByPk(postId);
+    if (!dataPost) return { code: 404, message: 'Post does not exist' };
+    if (dataPost.userId !== userId) return { code: 401, message: 'Unauthorized user' };
+    await BlogPost.destroy({ where: { id: postId } });
+    return { code: 204, data: 1 };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = { 
   createPost, 
   getAllPost,
   getByIdPost,
   updateByIdPost,
   seachByQuery,
+  deleteByIdPost,
 };
